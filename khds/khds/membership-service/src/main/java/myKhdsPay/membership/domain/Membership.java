@@ -38,7 +38,7 @@ public class Membership {
     // MembershipId라는 static 클래스를 사용해서
     // membershipId를 지정할 수 있다.
 
-    public static Membership generateMember(
+    public static Membership  generateMember(
         MembershipId membershipId,
         MemberShipName memberShipName,
         MembershipEmail membershipEmail,
@@ -59,7 +59,7 @@ public class Membership {
     public static class MembershipId {
 
         public MembershipId(String value) {
-            this        .membershipId = value;
+            this.membershipId = value;
         }
         String membershipId;
     }
