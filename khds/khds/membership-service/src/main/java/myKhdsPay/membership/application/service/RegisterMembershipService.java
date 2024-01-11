@@ -1,7 +1,7 @@
 package myKhdsPay.membership.application.service;
 
-import common.UseCase;
 import lombok.RequiredArgsConstructor;
+import myKhdsPay.common.UseCase;
 import myKhdsPay.membership.adaptor.out.persistence.MembershipJpaEntity;
 import myKhdsPay.membership.adaptor.out.persistence.MembershipMapper;
 import myKhdsPay.membership.application.port.in.RegisterMembershipCommand;

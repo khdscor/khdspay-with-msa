@@ -1,7 +1,7 @@
 package myKhdsPay.membership.adaptor.out.persistence;
 
-import common.PersistenceAdapter;
 import lombok.RequiredArgsConstructor;
+import myKhdsPay.common.PersistenceAdapter;
 import myKhdsPay.membership.application.port.out.RegisterMembershipPort;
 import myKhdsPay.membership.domain.Membership;
 

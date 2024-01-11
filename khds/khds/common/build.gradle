@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.graalvm.buildtools.native' version '0.9.28'
+}
+
+group = 'myKhdsPay.common'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+}
+
+test {
+    useJUnitPlatform()
+}
