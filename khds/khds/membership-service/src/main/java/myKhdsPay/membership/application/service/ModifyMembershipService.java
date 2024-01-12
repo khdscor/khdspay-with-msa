@@ -4,30 +4,31 @@ import lombok.RequiredArgsConstructor;
 import myKhdsPay.common.UseCase;
 import myKhdsPay.membership.adaptor.out.persistence.MembershipJpaEntity;
 import myKhdsPay.membership.adaptor.out.persistence.MembershipMapper;
-import myKhdsPay.membership.application.port.in.RegisterMembershipCommand;
-import myKhdsPay.membership.application.port.in.RegisterMembershipUseCase;
-import myKhdsPay.membership.application.port.out.RegisterMembershipPort;
+import myKhdsPay.membership.application.port.in.ModifyMembershipCommand;
+import myKhdsPay.membership.application.port.in.ModifyMembershipUseCase;
+import myKhdsPay.membership.application.port.out.ModifyMembershipPort;
 import myKhdsPay.membership.domain.Membership;
 import org.springframework.transaction.annotation.Transactional;
 
 @UseCase
 @Transactional
 @RequiredArgsConstructor
-public class RegisterMembershipService implements RegisterMembershipUseCase {
+public class ModifyMembershipService implements ModifyMembershipUseCase {
 
-    private final RegisterMembershipPort registerMembershipPort;
+    private final ModifyMembershipPort modifyMembershipPort;
 
     private final MembershipMapper membershipMapper;
     @Override
-    public Membership registerMembership(RegisterMembershipCommand command) {
+    public Membership modifyMembership(ModifyMembershipCommand command) {
 
         //command -> DB, return
-        MembershipJpaEntity entity = registerMembershipPort.createMembership(
+        MembershipJpaEntity entity = modifyMembershipPort.modifyMembership(
+            new Membership.MembershipId(command.getMembershipId()),
             new Membership.MemberShipName(command.getName()),
             new Membership.MembershipEmail(command.getEmail()),
             new Membership.MembershipAddress(command.getAddress()),
             new Membership.MembershipIsValid(command.isValid()),
-            new Membership.MembershipIsCorp(command.isValid())
+            new Membership.MembershipIsCorp(command.isCorp())
         );
 
         return membershipMapper.mapToDomainEntity(entity);

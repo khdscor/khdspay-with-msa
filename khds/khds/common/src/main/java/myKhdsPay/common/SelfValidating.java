@@ -1,4 +1,4 @@
-package common;
+package myKhdsPay.common;
 
 import jakarta.validation.*;
 import java.util.Set;
