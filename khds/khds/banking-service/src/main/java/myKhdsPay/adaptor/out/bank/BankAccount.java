@@ -1,15 +1,11 @@
-package myKhdsPay.adaptor.in.web;
+package myKhdsPay.adaptor.out.bank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class RegisterBankAccountRequest {
-
-    private String membershipId;
+public class BankAccount {
     private String bankName;
     private String bankAccountNumber;
     private boolean isValid;
