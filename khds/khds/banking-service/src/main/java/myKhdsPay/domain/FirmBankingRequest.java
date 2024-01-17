@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Value;
 
+import java.util.UUID;
+
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE) // 객체 내부에서만 접근할 수 있다.
 public class FirmBankingRequest {
@@ -23,24 +25,29 @@ public class FirmBankingRequest {
 
     private final int firmBankingStatus; //:0: 요청, 1: 완료 2: 실패
 
+    private final UUID uuid;
+
     public static FirmBankingRequest generateFirmBankingRequest(
-        FirmBankingRequestId firmBankingRequestId,
-        FromBankName fromBankName,
-        FromBankAccountNumber fromBankAccountNumber,
-        ToBankName toBankName,
-        ToBankAccountNumber toBankAccountNumber,
-        MoneyAmount moneyAmount,
-        FirmBankingStatus firmBankingStatus) {
+            FirmBankingRequestId firmBankingRequestId,
+            FromBankName fromBankName,
+            FromBankAccountNumber fromBankAccountNumber,
+            ToBankName toBankName,
+            ToBankAccountNumber toBankAccountNumber,
+            MoneyAmount moneyAmount,
+            FirmBankingStatus firmBankingStatus,
+            UUID uuid) {
 
         return new FirmBankingRequest(
-            firmBankingRequestId.getFirmBankingRequestId(),
-            fromBankName.getFromBankName(),
-            fromBankAccountNumber.getFromBankAccountNumber(),
-            toBankName.getToBankName(),
-            toBankAccountNumber.getToBankAccountNumber(),
-            moneyAmount.getMoneyAmount(),
-            firmBankingStatus.getFirmBankingStatus());
+                firmBankingRequestId.getFirmBankingRequestId(),
+                fromBankName.getFromBankName(),
+                fromBankAccountNumber.getFromBankAccountNumber(),
+                toBankName.getToBankName(),
+                toBankAccountNumber.getToBankAccountNumber(),
+                moneyAmount.getMoneyAmount(),
+                firmBankingStatus.getFirmBankingStatus(),
+                uuid);
     }
+
     @Value
     public static class FirmBankingRequestId {
 
