@@ -25,6 +25,11 @@ public class RequestMoneyChangingController {
 
         MoneyChangingRequest moneyChangingRequest = registerMembershipUseCase.registerMembership(command);
 
-        return new MoneyChangingResultDetail();
+        return new MoneyChangingResultDetail(
+                moneyChangingRequest.getTargetMembershipId(),
+                moneyChangingRequest.changingMoneyTypeToValue(),
+                moneyChangingRequest.changingMoneyStatusToValue(),
+                moneyChangingRequest.getChangingMoneyAmount()
+        );
     }
 }

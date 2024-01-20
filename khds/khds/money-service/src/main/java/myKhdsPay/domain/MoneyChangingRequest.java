@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Value;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
@@ -23,7 +24,19 @@ public class MoneyChangingRequest {
     private final ChangingType changingType; // enum: 0: 증액, 1: 감액
 
     enum ChangingType {
-        INCREASE, DECREASE
+        INCREASE(0), DECREASE(1);
+
+        final int changingType;
+
+        ChangingType(int changingType) {
+            this.changingType = changingType;
+        }
+
+        public static ChangingType from(int input) {
+            return Arrays.stream(values()).filter(value -> value.changingType == input)
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("예외 발생"));
+        }
     }
 
     // 증액 또는 감액 요청 금액
@@ -35,7 +48,19 @@ public class MoneyChangingRequest {
     private final ChangingMoneyStatus changingStatus; // enum: 0: 요청, 1: 승인, 2: 거절
 
     enum ChangingMoneyStatus {
-        REQUESTED, SUCCEEDED, FAILED,  CANCELLED
+        REQUESTED(0), SUCCEEDED(1), FAILED(2), CANCELLED(3);
+
+        final int changingStatus;
+
+        ChangingMoneyStatus(int changingStatus) {
+            this.changingStatus = changingStatus;
+        }
+
+        public static ChangingMoneyStatus from(int input) {
+            return Arrays.stream(values()).filter(value -> value.changingStatus == input)
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("예외 발생"));
+        }
     }
 
     @Getter
@@ -60,7 +85,14 @@ public class MoneyChangingRequest {
                 changingStatus.changingStatus,
                 uuid.getUuid(),
                 new Date()
-            );
+        );
+    }
+
+    public int changingMoneyTypeToValue() {
+        return changingType.changingType;
+    }
+    public int changingMoneyStatusToValue() {
+        return changingStatus.changingStatus;
     }
 
     @Value
@@ -69,6 +101,7 @@ public class MoneyChangingRequest {
         public MoneyChangingRequestId(String value) {
             this.moneyChangingRequestId = value;
         }
+
         String moneyChangingRequestId;
     }
 
@@ -78,15 +111,22 @@ public class MoneyChangingRequest {
         public TargetMembershipId(String value) {
             this.targetMembershipId = value;
         }
+
         String targetMembershipId;
     }
 
     @Value
     public static class MoneyChangingType {
 
-        public MoneyChangingType(ChangingType value) {
-            this.changingType = value;
+        public MoneyChangingType(int value) {
+            this.changingType = ChangingType.from(value);
         }
+
+        public int toValue () {
+            return changingType.changingType;
+
+        }
+
         ChangingType changingType;
     }
 
@@ -96,15 +136,22 @@ public class MoneyChangingRequest {
         public ChangingMoneyAmount(String value) {
             this.changingMoneyAmount = value;
         }
+
         String changingMoneyAmount;
     }
 
     @Value
     public static class ChangingStatus {
 
-        public ChangingStatus(ChangingMoneyStatus value) {
-            this.changingStatus = value;
+        public ChangingStatus(int value) {
+            this.changingStatus = ChangingMoneyStatus.from(value);
         }
+
+        public int toValue () {
+            return changingStatus.changingStatus;
+
+        }
+
         ChangingMoneyStatus changingStatus;
     }
 
@@ -114,6 +161,7 @@ public class MoneyChangingRequest {
         public Uuid(UUID uuid) {
             this.uuid = uuid.toString();
         }
+
         String uuid;
     }
 
@@ -123,6 +171,7 @@ public class MoneyChangingRequest {
         public CreatedAt(String value) {
             this.createdAt = value;
         }
+
         String createdAt;
     }
 }
