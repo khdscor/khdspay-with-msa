@@ -1,6 +1,8 @@
 package myKhdsPay.application.port.out;
 
+import myKhdsPay.adaptor.out.persistence.MemberMoneyJpaEntity;
 import myKhdsPay.adaptor.out.persistence.MoneyChangingRequestJpaEntity;
+import myKhdsPay.domain.MemberMoney;
 import myKhdsPay.domain.MoneyChangingRequest;
 
 public interface IncreaseMoneyPort {
@@ -13,4 +15,8 @@ public interface IncreaseMoneyPort {
             MoneyChangingRequest.Uuid uuid
     );
 
+    MemberMoneyJpaEntity increaseMoney(
+        MemberMoney.MembershipId membershipId,
+        int increaseMoneyAmount
+    );
 }
