@@ -7,6 +7,8 @@ import myKhdsPay.banking.adaptor.out.persistence.RegisteredBankAccountJpaEntity;
 import myKhdsPay.banking.adaptor.out.persistence.RegisteredBankAccountMapper;
 import myKhdsPay.banking.application.port.in.RegisterBankAccountCommand;
 import myKhdsPay.banking.application.port.in.RegisterBankAccountUseCase;
+import myKhdsPay.banking.application.port.out.GetMembershipPort;
+import myKhdsPay.banking.application.port.out.MemberShipStatus;
 import myKhdsPay.banking.application.port.out.RegisterBankAccountPort;
 import myKhdsPay.banking.application.port.out.RequestBankAccountInfoPort;
 import myKhdsPay.common.UseCase;
@@ -24,11 +26,21 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase {
 
     private final RequestBankAccountInfoPort requestBankAccountInfoPort;
 
+    private final GetMembershipPort getMembershipPort;
+
     @Override
     public RegisteredBankAccount registerBankAccount(RegisterBankAccountCommand command) {
 
         //은행 계죄를 등록해야하는 서비스 (비즈니스 로직)
-        // 멤버 서비스 확인은 (여기서는) skip =>  membershipId에 해당하는 멤버가 존재하는지 확인
+        // 멤버 서비스 확인 =>  membershipId에 해당하는 멤버가 존재하는지 확인
+        try {
+            MemberShipStatus status = getMembershipPort.getMembership(command.getMembershipId());
+            if(!status.isValid()){
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         //1. 외부 실제 은행에 등록이 가능한 계좌인지(정상인지) 확인한다.
         // 외부의 은행에 이 계좌가 정상인지? 확인을 해야한다.
         //biz logic -> External System

@@ -104,6 +104,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka:29092
       - LOGGING_TOPIC=khds.logging.out.stdout
+      - SERVICE_MEMBERSHIP_URL=http://membership-service:8080
 networks:
   khds_network:
     driver: bridge

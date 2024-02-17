@@ -17,7 +17,8 @@ public class RegisterBankAccountController {
     private final RegisterBankAccountUseCase registerBankAccountUseCase;
 
     @PostMapping("/bankAccount/resister")
-    RegisteredBankAccount registerBankAccount(@RequestBody RegisterBankAccountRequest request) {
+    RegisteredBankAccount registerBankAccount(@RequestBody RegisterBankAccountRequest request)
+        throws Exception {
         RegisterBankAccountCommand command = RegisterBankAccountCommand.builder()
                 .membershipId(request.getMembershipId())
                 .bankName(request.getBankName())
